@@ -1,28 +1,34 @@
 import numpy as np
 from equadratures import *
 import os
+
+#---------------------------------------------------------------------!!!!!!!!!!!!!!#
+# ADDED OF THE 15 OF MARCH: MULTIPLY BY A VECTOR WHICH REDUCES THE MAGNITUDE OF THE 
+# INPUT PARAMETERS
+scale_array = [10**3, 10**3, 10**6, 10**6]
+
 #------------------------------------------------------------------#
 # PART 2
 # Polyint class instance
 
 myBasis = Basis('Tensor grid')
-uni_1   = Parameter(distribution='uniform', order=5, upper=810, lower=790)
-uni_2   = Parameter(distribution='uniform', order=5, upper=710, lower=690)
-uni_3   = Parameter(distribution='uniform', order=5, upper=9*10**5, lower=11*10**5)
-uni_4   = Parameter(distribution='uniform', order=5, upper=4*10**5, lower=6*10**5)
+uni_1   = Parameter(distribution='uniform', order=5, upper=810./scale_array[0], lower=790./scale_array[0])
+uni_2   = Parameter(distribution='uniform', order=5, upper=710./scale_array[1], lower=690./scale_array[1])
+uni_3   = Parameter(distribution='uniform', order=5, upper=9.*10**5/scale_array[2], lower=11.*10**5/scale_array[2])
+uni_4   = Parameter(distribution='uniform', order=5, upper=4.*10**5/scale_array[3], lower=6.*10**5/scale_array[3])
 myPolyint = Polyint([uni_1, uni_2, uni_3, uni_4], myBasis)
 
 # Part 2.A------------------------------------------------------------------------------#
 # Instance of Parameter class: Truncated Gaussians to define a Nataf object, togheter
 # with the correlation matrix R.
 
-T01 = 800.
-distr1 = Parameter(distribution='truncated-gaussian', shape_parameter_A = T01, shape_parameter_B = 1. order=5, upper=T01*1.1, lower=T01*.9)
-T02 = 700.
+T01 = 800./scale_array[0]
+distr1 = Parameter(distribution='truncated-gaussian', shape_parameter_A = T01, shape_parameter_B = 1., order=5, upper=T01*1.1, lower=T01*.9)
+T02 = 700./scale_array[1]
 distr2 = Parameter(distribution='truncated-gaussian', shape_parameter_A = T02, shape_parameter_B = 1., order=5, upper=T02*1.1, lower=T02*.9)
-P01 = 10*10**5
+P01 = 10*10**5/scale_array[2]
 distr3 = Parameter(distribution='truncated-gaussian', shape_parameter_A = P01, shape_parameter_B = 1., order=5, upper=P01*1.1, lower=P01*.9)
-P02 = .5*10**5
+P02 = .5*10**5/scale_array[3]
 distr4 = Parameter(distribution='truncated-gaussian', shape_parameter_A = P02, shape_parameter_B = 1., order=5, upper=P02*1.1, lower=P02*.9)
 
 # Correlation matrix
@@ -45,12 +51,21 @@ def efficiency(x):
     #print 'the inputs are:', t1, t2, p1, p2
     #print 'after the matrix:', np.matrix([t1, t2, p1, p2]).shape
     # correlation among points----------------------------#
+    t1 = t1 #/scale_array[0]
+    print 't1 scaled:', t1 
+    t2 = t2 #/scale_array[1]
+    print 't2 scaled:', t2
+    p1 = p1 #/scale_array[2]
+    print 'p1 scaled:', p1
+    p2 = p2 #/scale_array[3]
+    print 'p2 scaled:', p2
     corr_pnt = myNataf.U2C(np.matrix([t1, t2, p1, p2]))
     print 'from line 47 of efficiency function: the result of U2C is:', corr_pnt
     t1 = corr_pnt[0,0]
     t2 = corr_pnt[0,1]
     p1 = corr_pnt[0,2]
     p2 = corr_pnt[0,3]
+
     #-----------------------------------------------------#
     eta   = (t1 - t2)/(t1 *(1- (p2/p1)**((gamma-1)/gamma)))
     return eta
