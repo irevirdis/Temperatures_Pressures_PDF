@@ -52,15 +52,15 @@ def efficiency(x):
     #print 'after the matrix:', np.matrix([t1, t2, p1, p2]).shape
     # correlation among points----------------------------#
     t1 = t1 #/scale_array[0]
-    print 't1 scaled:', t1 
+    #print 't1 scaled:', t1 
     t2 = t2 #/scale_array[1]
-    print 't2 scaled:', t2
+    #print 't2 scaled:', t2
     p1 = p1 #/scale_array[2]
-    print 'p1 scaled:', p1
+    #print 'p1 scaled:', p1
     p2 = p2 #/scale_array[3]
-    print 'p2 scaled:', p2
+    #print 'p2 scaled:', p2
     corr_pnt = myNataf.U2C(np.matrix([t1, t2, p1, p2]))
-    print 'from line 47 of efficiency function: the result of U2C is:', corr_pnt
+    #print 'from line 47 of efficiency function: the result of U2C is:', corr_pnt
     t1 = corr_pnt[0,0]
     t2 = corr_pnt[0,1]
     p1 = corr_pnt[0,2]
