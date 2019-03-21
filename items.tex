@@ -1,0 +1,64 @@
+\documentclass[12pt]{article}
+
+%\usepackage[a4paper, bindingoffset=0.2inc,%
+%            left=0.7in, right=0.7in, top=0.7in, bottom=1in,%
+%            footskip=.25in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[latin1]{inputenc}
+\usepackage{verbatim}
+
+\title{Global sensitivity analysis with correlated data}
+\author{Irene Virdis}
+
+\begin{document}
+\maketitle
+
+\begin{itemize}
+%% turbine2_ps_edit:
+%	\item Are there any differences between the mean and the variance calculated with:
+%		\begin{itemize}
+%				\item Quadrature Points correlated with Nataf
+%			        \item Correlated MonteCarlo samples
+%		\end{itemize}
+%		(from the script \textit{turbine2-ps-edit.py}: some differences in the variance values)
+%% efficiency_plot
+%	\item What is the influence of the correlation matrix in the efficiency calculation?
+%		(script \textit{efficiency-plot.py}: check the plot of efficiency in a 3d space)
+%% efficiency_variance
+%
+%% mapping_points
+%
+%% order check draft
+%
+%% check approximation 1, 2 --> both methods
+	\item Validation of EQ statistics VS MC 
+		\begin{itemize}
+			\item Quantitative: The statistical moments calculated with EQ and MC get the same results in terms of turbine efficiency into the correlated space (turbine-ps-edit.py)
+			\item Qualitative: Samples from correlated and uncorrelated spaces are plotted togheter with the values of efficiency, both for EQ and MC. (mapping-points.py)
+		\end{itemize}
+	\item{Influence of correlation}
+		\begin{itemize}
+			\item \textcolor{blue}{Coherence of results with published papers}: Does the standard deviation change value when we consider the correlation coefficients among temperatures and pressures? Three cases have been compared, taking into account the different correlation among temperatures and pressures; statistical moments for each case have been calculated both with EQ and MC. \textcolor{teal} {Results:} The expected, decresing variation of standard deviation has been found for correlated temperatures, instead, for correlated pressures an oscillating behaviour is observed with MC and a constant one with EQ. (script: efficiency-variance.py; notebook: efficiensy-variance-explaination.ipynb)
+			\item \textcolor{blue}{Perturbation inside an UQ phase of RDO}: Does the mean, the variance and the coefficients of a surrogate model, obtained with a polynomial approximation, change values when we get samples from correlated space or uncorrelated space? \textcolor{teal} {The comparison between the scripts check-approximation-1 and check-approximation-2 aims to answer to this issue.}
+		\end{itemize}
+
+
+
+
+
+\end{itemize}
+
+
+
+
+
+
+
+
+\end{document}
+
+
+
